@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React from 'react';
+import {Link, IndexLink} from 'react-router';
 
-class Nav extends Component {
-  render() {
+const NavBar = () => {
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -13,20 +12,19 @@ class Nav extends Component {
           
           <ul className="nav navbar-nav">
             <li>
-              <Link to="/" activeClassName="active">Timer</Link>
+              <IndexLink to="/" activeClassName="active">Timer</IndexLink> 
             </li>
             <li>
-              <Link to="/" activeClassName="active">Countdown</Link>
+              <Link to="countdown" activeClassName="active">Countdown</Link>
             </li>
           </ul>
           
           <p className="navbar-text navbar-right">
-            Created by <a href="https://www.linkedin.com/in/john-laine/">John Laine</a>
+            Created by <a href="https://www.linkedin.com/in/john-laine/" target="_blank">John Laine</a>
           </p>
         </div>
       </nav>
     );
-  }
-}
+  };
 
-export default Nav;
+export default NavBar;
