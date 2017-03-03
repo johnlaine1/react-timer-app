@@ -5,7 +5,9 @@ const App = (props) => {
     return (
       <div className="App">
         <NavBar/>
-        {props.children}
+        <div className="container">
+          {props.children}
+        </div>
       </div>
     );
   };
