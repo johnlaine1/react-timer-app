@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Clock from './Clock';
 import CountdownForm from './CountdownForm';
+import Controls from './Controls';
 
 class CountdownPage extends Component {
   constructor(props) {
@@ -11,26 +12,34 @@ class CountdownPage extends Component {
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.countdownStatus !== prevState.countdownStatus) {
-      switch (this.state.countdownStatus) {
+    const {countdownStatus} = this.state;
+    if (countdownStatus !== prevState.countdownStatus) {
+      switch (countdownStatus) {
         case 'started':
           this.startTimer();
+          break;
+        case 'stopped':
+          this.setState({'count': 0});
+        case 'paused':
+          clearInterval(this.timer);
+          this.timer = undefined;
           break;
       }
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = undefined;
+  }
   startTimer() {
     this.timer = setInterval(() => {
       let newCount = this.state.count - 1;
-      
-      if (this.state.countdownStatus === 'started') {
-        this.setState({count: newCount});
-      }     
-      
-      if (this.state.count === 0) {
-        this.setState({'countdownStatus': 'stopped'});
-        clearInterval(this.timer);
-      }
+
+        this.setState({count: newCount >= 0 ? newCount : 0});
+        
+        if (newCount === 0) {
+          this.setState({countdownStatus: 'stopped'});
+        }
 
     }, 1000);
   }
@@ -41,13 +50,28 @@ class CountdownPage extends Component {
     });
     
   }
+  handleStatusChange(newStatus) {
+    this.setState({countdownStatus: newStatus});
+  }
   render() {
+    const {count, countdownStatus} = this.state;
+    const renderControlArea = () => {
+      if (countdownStatus === 'stopped') {
+        return (
+        <CountdownForm onSetCountdown={this.handleSetCountdown.bind(this)}/>  
+        );
+      } else {
+        return (
+          <Controls onStatusChange={this.handleStatusChange.bind(this)} countdownStatus={countdownStatus}/>  
+        ); 
+      }
+    };
+    
     return (
       <div className="row">
         <div className="text-center">
-          <Clock  seconds={this.state.count}/>
-          <CountdownForm countdownStatus={this.state.countdownStatus} 
-            onSetCountdown={this.handleSetCountdown.bind(this)}/>
+          <Clock  seconds={count}/>
+          {renderControlArea()}
         </div>
       </div>
     );

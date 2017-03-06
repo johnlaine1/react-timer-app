@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ClockControls from './ClockControls';
+import Controls from './Controls';
 
 class CountdownForm extends Component {
   onSubmit(e) {
@@ -9,7 +9,6 @@ class CountdownForm extends Component {
     if (strSeconds.match(/^[0-9]*$/) ) {
       this.props.onSetCountdown(parseInt(strSeconds, 10));
       this.refs.secondsInput.value = '';
-      // this.refs.startButton.innerHTML = 'Stop';
     }
   }
   render() {
@@ -19,7 +18,11 @@ class CountdownForm extends Component {
           <div className="form-group">
             <input placeholder="Enter time in seconds" ref="secondsInput" type="text"/>
           </div>
-          <ClockControls countdownStatus={this.props.countdownStatus}/>
+          <button 
+            className="btn btn-primary btn-lg" 
+            type="submit">
+            Start
+          </button>
         </form>
       </div>
     );
