@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Controls from './Controls';
 
 class CountdownForm extends Component {
   onSubmit(e) {

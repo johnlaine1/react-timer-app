@@ -20,10 +20,12 @@ class CountdownPage extends Component {
           break;
         case 'stopped':
           this.setState({'count': 0});
+          /* falls through */
         case 'paused':
           clearInterval(this.timer);
           this.timer = undefined;
           break;
+        default:
       }
     }
   }
