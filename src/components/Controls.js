@@ -12,7 +12,7 @@ class Controls extends Component {
     if (countdownStatus === 'started') {
       return <button onClick={this.onStatusChange('paused')} >Pause</button>;
     }
-    if (countdownStatus === 'paused') {
+    if (countdownStatus === 'paused' || countdownStatus === 'stopped') {
       return <button onClick={this.onStatusChange('started')}>Start</button>;
     }
   }
