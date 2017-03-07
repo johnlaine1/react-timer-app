@@ -71,9 +71,12 @@ class CountdownPage extends Component {
     
     return (
       <div className="row">
-        <div className="text-center">
-          <Clock  seconds={count}/>
-          {renderControlArea()}
+        <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+          <div className="thumbnail text-center">
+            <h2>Countdown Timer</h2>
+            <Clock  seconds={count}/>
+            {renderControlArea()}
+          </div>
         </div>
       </div>
     );

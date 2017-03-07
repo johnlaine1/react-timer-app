@@ -30,10 +30,12 @@ class TimerPage extends Component {
       }
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
   startTimer() {
     this.timer = setInterval(() => {
-      let newCount = this.state.count + 1;
-      this.setState({'count': newCount});
+      this.setState({'count': this.state.count + 1});
     }, 1000);
   }
   handleStatusChange(newStatus) {
@@ -41,11 +43,16 @@ class TimerPage extends Component {
   }
   render() {
     return (
-      <div className="text-center">
-        <Clock seconds={this.state.count}/>
-        <Controls
-          countdownStatus={this.state.countdownStatus}
-          onStatusChange={this.handleStatusChange.bind(this)}/>
+      <div className="row">
+        <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+          <div className="thumbnail text-center">
+            <h2>Timer</h2>
+            <Clock seconds={this.state.count}/>
+            <Controls
+              countdownStatus={this.state.countdownStatus}
+              onStatusChange={this.handleStatusChange.bind(this)}/>
+          </div>
+        </div>
       </div>
     );
   }
