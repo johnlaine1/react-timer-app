@@ -2,6 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: #b5d0e2;
+}
+
+.navbar-right {
+  margin-right: 10px;
 }
 
 .clock {
